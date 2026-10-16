@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل معنا - متجر بصمة فن</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .map-container {
+            margin-top: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header & Nav -->
+    <header class="main-header">
+        <div class="container header-container">
+            <h1 class="logo">
+                <a href="../index.html"><i class="fa-solid fa-fingerprint"></i> بصمة فن</a>
+            </h1>
+
+            <nav class="nav-links" id="nav-menu">
+                <a href="../index.html"><i class="fa-solid fa-house"></i> الرئيسية</a>
+                <a href="products.html"><i class="fa-solid fa-box-open"></i> المنتجات</a>
+                <a href="about.html"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+                <a href="contact.html" class="active"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="btn-toggle" title="تغيير المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="cart-icon-wrapper" onclick="toggleCart()">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="page-title">تواصل معنا</h2>
+
+        <div class="contact-wrapper">
+            <!-- قسم معلومات التواصل والأرقام -->
+            <div class="contact-info">
+                <h3>معلومات الاتصال</h3>
+                <p>سعداء بخدمتكم وتلبية جميع استفساراتكم واحتياجاتكم من التحف والهدايا اليدوية عبر وسائل التواصل
+                    التالية:</p>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <h4>رقم الهاتف:</h4>
+                        <p><a href="tel:776926118">776926118</a></p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <div>
+                        <h4>واتساب المباشر:</h4>
+                        <p><a href="https://wa.me/967776926118" target="_blank">776926118</a></p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h4>العنوان:</h4>
+                        <p>اليمن - صنعاء</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نموذج إرسال الرسالة -->
+            <form class="contact-form" id="contactForm" onsubmit="handleContactSubmit(event)">
+                <div class="input-group">
+                    <label for="name">الاسم الكامل:</label>
+                    <input type="text" id="name" required placeholder="أدخل اسمك الكريم">
+                </div>
+
+                <div class="input-group">
+                    <label for="email">البريد الإلكتروني / رقم التواصل:</label>
+                    <input type="text" id="email" required placeholder="أدخل بريدك أو رقم هاتفك">
+                </div>
+
+                <div class="input-group">
+                    <label for="message">الرسالة أو الاستفسار:</label>
+                    <textarea id="message" rows="5" required
+                        placeholder="اكتب استفسارك عن التحف، الهدايا اليدوية، أو الأسعار هنا..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fa-brands fa-whatsapp"></i> إرسال عبر الواتساب
+                </button>
+            </form>
+        </div>
+
+        <!-- خريطة الموقع التفاعلية -->
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123097.43321557993!2d44.153443!3d15.355602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1603db1123f135b5%3A0x334a17950f2832!2sSana&#39;a%2C%20Yemen!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+    </main>
+
+    <!-- Cart Sidebar Overlay & Drawer -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <aside class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3><i class="fa-solid fa-cart-shopping"></i> سلة التسوق</h3>
+            <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-body" id="cart-items-container">
+            <!-- عناصر السلة تُضاف ديناميكياً -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-price">
+                <span>الإجمالي:</span>
+                <span id="cart-total-amount">0 ريال</span>
+            </div>
+            <button class="btn-whatsapp-checkout" onclick="sendOrderWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> إتمام الطلب عبر الواتساب
+            </button>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <h3>متجر بصمة فن</h3>
+                <p>وجهتك الأولى للتحف الفنية والهدايا اليدوية الراقية في اليمن.</p>
+            </div>
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <a href="../index.html">الرئيسية</a>
+                <a href="products.html">المنتجات</a>
+                <a href="about.html">من نحن</a>
+                <a href="contact.html">تواصل معنا</a>
+            </div>
+            <div class="footer-contact">
+                <h4>تواصل معنا</h4>
+                <p><i class="fa-solid fa-location-dot"></i> صنعاء - اليمن</p>
+                <p><i class="fa-solid fa-phone"></i> +967776926118</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 متجر بصمة فن للتحف والهدايا اليدوية. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const contactInfo = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            let fullMessage = `مرحباً، رسالة استفسار جديدة من متجر بصمة فن:\n\n`;
+            fullMessage += `👤 *الاسم:* ${name}\n`;
+            fullMessage += `📞 *بيانات التواصل:* ${contactInfo}\n\n`;
+            fullMessage += `💬 *الرسالة:*\n${message}`;
+
+            const encodedMessage = encodeURIComponent(fullMessage);
+            const whatsappURL = `https://wa.me/967776926118?text=${encodedMessage}`;
+
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</body>
+
+</html>

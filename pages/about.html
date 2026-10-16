@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من نحن - متجر بصمة فن</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- Header & Nav -->
+    <header class="main-header">
+        <div class="container header-container">
+            <h1 class="logo">
+                <a href="../index.html"><i class="fa-solid fa-fingerprint"></i> بصمة فن</a>
+            </h1>
+
+            <nav class="nav-links" id="nav-menu">
+                <a href="../index.html"><i class="fa-solid fa-house"></i> الرئيسية</a>
+                <a href="products.html"><i class="fa-solid fa-box-open"></i> المنتجات</a>
+                <a href="about.html" class="active"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+                <a href="contact.html"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="btn-toggle" title="تغيير المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="cart-icon-wrapper" onclick="toggleCart()">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="page-title">عن متجر بصمة فن</h2>
+
+        <section class="about-section about-text-card">
+            <h2>رؤيتنا وقصتنا</h2>
+            <p>تأسس متجر بصمة فن ليقدم أروع التحف المصنوعة يدوياً والهدايا الفريدة لعملائنا في اليمن. نحن متخصصون في
+                تصميم وتوفير أجمل القطع الفنية اليدوية والديكورات المميزة التي تضفي لمسة من الفخامة والذوق الرفيع على كل
+                زاوية في بيتك ومكتبك.</p>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <h3>+5</h3>
+                    <p>سنوات من الإبداع</p>
+                </article>
+                <article class="stat-card">
+                    <h3>+5000</h3>
+                    <p>عميل سعيد</p>
+                </article>
+                <article class="stat-card">
+                    <h3>100%</h3>
+                    <p>إتقان وجودة يدوية</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="features" style="margin-bottom: 3rem;">
+            <article class="feature-card">
+                <i class="fa-solid fa-gem"></i>
+                <h3>الفخامة والإتقان</h3>
+                <p>نحرص على صناعة وتقديم أرقى التحف والهدايا اليدوية المصنوعة بعناية فائقة لتلبي أذواقكم الرفيعة.</p>
+            </article>
+            <article class="feature-card">
+                <i class="fa-solid fa-handshake"></i>
+                <h3>الموثوقية والتميز</h3>
+                <p>نضمن لك الحصول على قطع فريدة ومميزة تليق بمناسباتك وتجعل كل هداياك ذات طابع خاص لا يُنسى.</p>
+            </article>
+            <article class="feature-card">
+                <i class="fa-solid fa-fingerprint"></i>
+                <h3>لمسات فنية مبتكرة</h3>
+                <p>نبتكر دائماً تصاميم جديدة تجمع بين الأصالة والذوق الحديث لتضفي جمالاً استثنائياً على مساحاتك.</p>
+            </article>
+        </section>
+    </main>
+
+    <!-- Cart Sidebar Overlay & Drawer -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <aside class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3><i class="fa-solid fa-cart-shopping"></i> سلة التسوق</h3>
+            <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-body" id="cart-items-container">
+            <!-- عناصر السلة تُضاف ديناميكياً -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-price">
+                <span>الإجمالي:</span>
+                <span id="cart-total-amount">0 ريال</span>
+            </div>
+            <button class="btn-whatsapp-checkout" onclick="sendOrderWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> إتمام الطلب عبر الواتساب
+            </button>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <h3>متجر بصمة فن</h3>
+                <p>وجهتك الأولى للتحف الفنية والهدايا اليدوية الراقية في اليمن.</p>
+            </div>
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <a href="../index.html">الرئيسية</a>
+                <a href="products.html">المنتجات</a>
+                <a href="about.html">من نحن</a>
+                <a href="contact.html">تواصل معنا</a>
+            </div>
+            <div class="footer-contact">
+                <h4>تواصل معنا</h4>
+                <p><i class="fa-solid fa-location-dot"></i> صنعاء - اليمن</p>
+                <p><i class="fa-solid fa-phone"></i> +967776926118</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 متجر بصمة فن للتحف والهدايا اليدوية. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض المنتجات - متجر بصمة فن</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .filter-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-theme .filter-section {
+            background: #1e1e1e;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .filter-btn {
+            background: #2a2a2a;
+            color: #fff;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #f59e0b;
+            color: #0f172a;
+            font-weight: bold;
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 35px 8px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header & Nav -->
+    <header class="main-header">
+        <div class="container header-container">
+            <h1 class="logo">
+                <a href="../index.html"><i class="fa-solid fa-fingerprint"></i> بصمة فن</a>
+            </h1>
+
+            <nav class="nav-links" id="nav-menu">
+                <a href="../index.html"><i class="fa-solid fa-house"></i> الرئيسية</a>
+                <a href="products.html" class="active"><i class="fa-solid fa-box-open"></i> المنتجات</a>
+                <a href="about.html"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+                <a href="contact.html"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="btn-toggle" title="تغيير المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="cart-icon-wrapper" onclick="toggleCart()">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="page-title">معرض التحف والهدايا اليدوية</h2>
+
+        <!-- Filter & Search Bar -->
+        <section class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterProducts('all')">الكل</button>
+                <button class="filter-btn" onclick="filterProducts('artifacts')">تحف فنية</button>
+                <button class="filter-btn" onclick="filterProducts('gifts')">هدايا يدوية</button>
+                <button class="filter-btn" onclick="filterProducts('decor')">ديكورات منزلية</button>
+            </div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="ابحث عن تحفة أو هدية...">
+            </div>
+        </section>
+
+        <!-- Products Grid -->
+        <section class="products-grid" id="all-products-container">
+
+            <article class="product-card" data-category="decor" data-name="طقم ديكور مقوس أنيق">
+                <img src="../images/arch-decor.jpg" alt="طقم ديكور مقوس أنيق" loading="lazy">
+                <div class="product-info">
+                    <h3>طقم ديكور مقوس أنيق</h3>
+                    <p class="price">15,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('طقم ديكور مقوس أنيق', 15000, '../images/arch-decor.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="تحفة فنية يدوية مميزة">
+                <img src="../images/art-piece-1.jpg" alt="تحفة فنية يدوية مميزة" loading="lazy">
+                <div class="product-info">
+                    <h3>تحفة فنية يدوية مميزة</h3>
+                    <p class="price">12,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('تحفة فنية يدوية مميزة', 12000, '../images/art-piece-1.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="تحفة ديكور فخمة">
+                <img src="../images/art-piece-2.jpg" alt="تحفة ديكور فخمة" loading="lazy">
+                <div class="product-info">
+                    <h3>تحفة ديكور فخمة</h3>
+                    <p class="price">18,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('تحفة ديكور فخمة', 18000, '../images/art-piece-2.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="منحوتة يدوية عصرية">
+                <img src="../images/art-piece-3.jpg" alt="منحوتة يدوية عصرية" loading="lazy">
+                <div class="product-info">
+                    <h3>منحوتة يدوية عصرية</h3>
+                    <p class="price">22,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('منحوتة يدوية عصرية', 22000, '../images/art-piece-3.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="مجسم فني إبداعي">
+                <img src="../images/art-piece-4.jpg" alt="مجسم فني إبداعي" loading="lazy">
+                <div class="product-info">
+                    <h3>مجسم فني إبداعي</h3>
+                    <p class="price">16,500 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('مجسم فني إبداعي', 16500, '../images/art-piece-4.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="تحفة منزلية مصممة بعناية">
+                <img src="../images/art-piece-5.jpg" alt="تحفة منزلية مصممة بعناية" loading="lazy">
+                <div class="product-info">
+                    <h3>تحفة منزلية مصممة بعناية</h3>
+                    <p class="price">14,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('تحفة منزلية مصممة بعناية', 14000, '../images/art-piece-5.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="قطعة ديكور ريسن فنية">
+                <img src="../images/art-piece-6.jpg" alt="قطعة ديكور ريسن فنية" loading="lazy">
+                <div class="product-info">
+                    <h3>قطعة ديكور ريسن فنية</h3>
+                    <p class="price">19,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('قطعة ديكور ريسن فنية', 19000, '../images/art-piece-6.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="تحفة فنية بتصميم فريد">
+                <img src="../images/art-piece-7.jpg" alt="تحفة فنية بتصميم فريد" loading="lazy">
+                <div class="product-info">
+                    <h3>تحفة فنية بتصميم فريد</h3>
+                    <p class="price">13,500 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('تحفة فنية بتصميم فريد', 13500, '../images/art-piece-7.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="مجسم ديكور جداري راقي">
+                <img src="../images/art-piece-8.jpg" alt="مجسم ديكور جداري راقي" loading="lazy">
+                <div class="product-info">
+                    <h3>مجسم ديكور جداري راقي</h3>
+                    <p class="price">24,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('مجسم ديكور جداري راقي', 24000, '../images/art-piece-8.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="تحفة فنية دائرية مطرزة">
+                <img src="../images/art-piece-9.jpg" alt="تحفة فنية دائرية مطرزة" loading="lazy">
+                <div class="product-info">
+                    <h3>تحفة فنية دائرية مطرزة</h3>
+                    <p class="price">17,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('تحفة فنية دائرية مطرزة', 17000, '../images/art-piece-9.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="عمل فني يدوي متقن">
+                <img src="../images/art-piece-10.jpg" alt="عمل فني يدوي متقن" loading="lazy">
+                <div class="product-info">
+                    <h3>عمل فني يدوي متقن</h3>
+                    <p class="price">21,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('عمل فني يدوي متقن', 21000, '../images/art-piece-10.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="تحفة مكتبية أنيقة">
+                <img src="../images/art-piece-11.jpg" alt="تحفة مكتبية أنيقة" loading="lazy">
+                <div class="product-info">
+                    <h3>تحفة مكتبية أنيقة</h3>
+                    <p class="price">11,500 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('تحفة مكتبية أنيقة', 11500, '../images/art-piece-11.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="decor" data-name="ساعة جدارية سوداء كلاسيكية">
+                <img src="../images/black-clok.jpg" alt="ساعة جدارية سوداء كلاسيكية" loading="lazy">
+                <div class="product-info">
+                    <h3>ساعة جدارية سوداء كلاسيكية</h3>
+                    <p class="price">28,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('ساعة جدارية سوداء كلاسيكية', 28000, '../images/black-clok.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="decor" data-name="ساعة جدارية سوداء بإطار ذهبي">
+                <img src="../images/black-gold-clock.jpg" alt="ساعة جدارية سوداء بإطار ذهبي" loading="lazy">
+                <div class="product-info">
+                    <h3>ساعة جدارية سوداء بإطار ذهبي</h3>
+                    <p class="price">32,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('ساعة جدارية سوداء بإطار ذهبي', 32000, '../images/black-gold-clock.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="decor" data-name="ساعة ريزن سوداء فاخرة">
+                <img src="../images/black-resin.jpg" alt="ساعة ريزن سوداء فاخرة" loading="lazy">
+                <div class="product-info">
+                    <h3>ساعة ريزن سوداء فاخرة</h3>
+                    <p class="price">35,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('ساعة ريزن سوداء فاخرة', 35000, '../images/black-resin.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="decor" data-name="ساعة ريزن أزرق وأبيض">
+                <img src="../images/blue-clock.jpg" alt="ساعة ريزن أزرق وأبيض" loading="lazy">
+                <div class="product-info">
+                    <h3>ساعة ريزن أزرق وأبيض</h3>
+                    <p class="price">30,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('ساعة ريزن أزرق وأبيض', 30000, '../images/blue-clock.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="decor" data-name="صينية ريزن زرقاء مميزة">
+                <img src="../images/blue-resin-clock.jpg" alt="صينية ريزن زرقاء مميزة" loading="lazy">
+                <div class="product-info">
+                    <h3>صينية ريزن زرقاء مميزة</h3>
+                    <p class="price">17,500 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('صينية ريزن زرقاء مميزة', 17500, '../images/blue-resin-clock.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="gifts" data-name="فازات مع زهور مجففة طبيعية">
+                <img src="../images/dried-flowers-vases.jpg" alt="فازات مع زهور مجففة طبيعية" loading="lazy">
+                <div class="product-info">
+                    <h3>فازات مع زهور مجففة طبيعية</h3>
+                    <p class="price">13,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('فازات مع زهور مجففة طبيعية', 13000, '../images/dried-flowers-vases.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="gifts" data-name="صينية تقديم بإطار ذهبي لامع">
+                <img src="../images/gold-edge-tray.jpg" alt="صينية تقديم بإطار ذهبي لامع" loading="lazy">
+                <div class="product-info">
+                    <h3>صينية تقديم بإطار ذهبي لامع</h3>
+                    <p class="price">21,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('صينية تقديم بإطار ذهبي لامع', 21000, '../images/gold-edge-tray.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="gifts" data-name="حامل حلويات وهدايا ذهبي متدرج">
+                <img src="../images/gold-tier.jpg" alt="حامل حلويات وهدايا ذهبي متدرج" loading="lazy">
+                <div class="product-info">
+                    <h3>حامل حلويات وهدايا ذهبي متدرج</h3>
+                    <p class="price">26,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('حامل حلويات وهدايا ذهبي متدرج', 26000, '../images/gold-tier.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="gifts" data-name="طقم مباخر وديكور منزلي متكامل">
+                <img src="../images/incense-set.jpg" alt="طقم مباخر وديكور منزلي متكامل" loading="lazy">
+                <div class="product-info">
+                    <h3>طقم مباخر وديكور منزلي متكامل</h3>
+                    <p class="price">23,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('طقم مباخر وديكور منزلي متكامل', 23000, '../images/incense-set.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="gifts" data-name="طقم هدايا إسلامية أنيق">
+                <img src="../images/islamic-gift-set.jpg" alt="طقم هدايا إسلامية أنيق" loading="lazy">
+                <div class="product-info">
+                    <h3>طقم هدايا إسلامية أنيق</h3>
+                    <p class="price">22,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('طقم هدايا إسلامية أنيق', 22000, '../images/islamic-gift-set.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="gifts" data-name="مجسم هلال رمضان والديكور الفاخر">
+                <img src="../images/ramadan-decor.jpg" alt="مجسم هلال رمضان والديكور الفاخر" loading="lazy">
+                <div class="product-info">
+                    <h3>مجسم هلال رمضان والديكور الفاخر</h3>
+                    <p class="price">12,500 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('مجسم هلال رمضان والديكور الفاخر', 12500, '../images/ramadan-decor.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="صينية ريزن فنية مصممة يدوياً">
+                <img src="../images/resin-tray.jpg" alt="صينية ريزن فنية مصممة يدوياً" loading="lazy">
+                <div class="product-info">
+                    <h3>صينية ريزن فنية مصممة يدوياً</h3>
+                    <p class="price">18,500 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('صينية ريزن فنية مصممة يدوياً', 18500, '../images/resin-tray.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="gifts" data-name="حامل هدايا متدرج فاخر">
+                <img src="../images/tier-tray.jpg" alt="حامل هدايا متدرج فاخر" loading="lazy">
+                <div class="product-info">
+                    <h3>حامل هدايا متدرج فاخر</h3>
+                    <p class="price">25,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('حامل هدايا متدرج فاخر', 25000, '../images/tier-tray.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="gifts" data-name="طقم مباخر يدوية بيضاء راقية">
+                <img src="../images/white-incense.jpg" alt="طقم مباخر يدوية بيضاء راقية" loading="lazy">
+                <div class="product-info">
+                    <h3>طقم مباخر يدوية بيضاء راقية</h3>
+                    <p class="price">16,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('طقم مباخر يدوية بيضاء راقية', 16000, '../images/white-incense.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="صينية رخامية بيضاء ديكورية">
+                <img src="../images/white-marble-tray.jpg" alt="صينية رخامية بيضاء ديكورية" loading="lazy">
+                <div class="product-info">
+                    <h3>صينية رخامية بيضاء ديكورية</h3>
+                    <p class="price">19,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('صينية رخامية بيضاء ديكورية', 19000, '../images/white-marble-tray.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="artifacts" data-name="صينية ريزن بيضاء فاخرة">
+                <img src="../images/white-resin.jpg" alt="صينية ريزن بيضاء فاخرة" loading="lazy">
+                <div class="product-info">
+                    <h3>صينية ريزن بيضاء فاخرة</h3>
+                    <p class="price">19,500 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('صينية ريزن بيضاء فاخرة', 19500, '../images/white-resin.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card" data-category="decor" data-name="طقم فازات صفراء ديكورية أنيقة">
+                <img src="../images/yellow-vases.jpg" alt="طقم فازات صفراء ديكورية أنيقة" loading="lazy">
+                <div class="product-info">
+                    <h3>طقم فازات صفراء ديكورية أنيقة</h3>
+                    <p class="price">14,000 ريال</p>
+                    <button class="buy-btn"
+                        onclick="addToCartPage('طقم فازات صفراء ديكورية أنيقة', 14000, '../images/yellow-vases.jpg')">
+                        <i class="fa-solid fa-cart-plus"></i> إضافة للسلة
+                    </button>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <!-- Cart Sidebar Overlay & Drawer -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <aside class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3><i class="fa-solid fa-cart-shopping"></i> سلة التسوق</h3>
+            <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-body" id="cart-items-container">
+            <!-- عناصر السلة تُضاف ديناميكياً -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-price">
+                <span>الإجمالي:</span>
+                <span id="cart-total-amount">0 ريال</span>
+            </div>
+            <button class="btn-whatsapp-checkout" onclick="sendOrderWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> إتمام الطلب عبر الواتساب
+            </button>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <h3>متجر بصمة فن</h3>
+                <p>وجهتك الأولى للتحف الفنية والهدايا اليدوية الراقية في اليمن.</p>
+            </div>
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <a href="../index.html">الرئيسية</a>
+                <a href="products.html">المنتجات</a>
+                <a href="about.html">من نحن</a>
+                <a href="contact.html">تواصل معنا</a>
+            </div>
+            <div class="footer-contact">
+                <h4>تواصل معنا</h4>
+                <p><i class="fa-solid fa-location-dot"></i> صنعاء - اليمن</p>
+                <p><i class="fa-solid fa-phone"></i> +967776926118</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 متجر بصمة فن للتحف والهدايا اليدوية. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function filterProducts(category) {
+            const cards = document.querySelectorAll('.product-card');
+            const btns = document.querySelectorAll('.filter-btn');
+
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function searchProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const name = card.dataset.name.toLowerCase();
+                if (name.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function addToCartPage(name, price, image) {
+            const id = name;
+            const existingItem = cart.find(item => item.name === name);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+
+            saveCartAndUpdate();
+            toggleCart(true);
+        }
+    </script>
+</body>
+
+</html>

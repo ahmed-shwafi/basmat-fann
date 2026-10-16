@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <script>
+        // تحديد كلمة المرور الخاصة بالتاجر فقط
+        const secretPassword = "123456"; // ضع كلمة المرور التي تريدها هنا
+
+        const userInput = prompt("يرجى إدخال كلمة المرور للوصول إلى لوحة التحكم:");
+
+        if (userInput !== secretPassword) {
+            alert("كلمة المرور غير صحيحة! لا يمكنك الوصول للوحة التحكم.");
+            window.location.href = "index.html"; // إعادة توجيهه للرئيسية
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - متجر أحمد الشوافي</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- اربطه بملف التصميم الخاص بك -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f6f8;
+            font-family: Tahoma, sans-serif;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .btn-add {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-add:hover {
+            background: #1ebe5d;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-container">
+        <h2><i class="fa-solid fa-gauge"></i> لوحة تحكم إضافة المنتجات</h2>
+
+        <form id="addProductForm">
+            <div class="form-group">
+                <label>اسم المنتج:</label>
+                <input type="text" id="prodName" required placeholder="مثال: نجف كريستال جديد">
+            </div>
+
+            <div class="form-group">
+                <label>السعر (بالريال):</label>
+                <input type="number" id="prodPrice" required placeholder="مثال: 15000">
+            </div>
+
+            <div class="form-group">
+                <label>اسم أو مسار الصورة:</label>
+                <input type="text" id="prodImage" required placeholder="images/chand1.jpg">
+            </div>
+
+            <button type="submit" class="btn-add"><i class="fa-solid fa-plus"></i> إضافة المنتج للمتجر</button>
+        </form>
+
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-right"></i> العودة إلى المتجر الرئيسي</a>
+
+        <!-- مربع عرض المنتجات المضافة مع زر الحذف -->
+        <div style="margin-top: 25px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #ddd;">
+            <h3 style="margin-bottom: 12px; color: #333;">المنتجات المضافة حالياً:</h3>
+            <div id="admin-products-list"></div>
+        </div>
+
+
+    </div>
+
+    <script>
+        document.getElementById('addProductForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('prodName').value;
+            const price = Number(document.getElementById('prodPrice').value);
+            const image = document.getElementById('prodImage').value;
+
+            // جلب المنتجات المخزنة مسبقاً أو البدء بمصفوفة فارغة
+            let customProducts = JSON.parse(localStorage.getItem('custom_products')) || [];
+
+            const newProduct = {
+                id: Date.now(), // رقم فريد يعتمد على الوقت الحالي
+                name: name,
+                price: price,
+                image: image
+            };
+
+            customProducts.push(newProduct);
+            localStorage.setItem('custom_products', JSON.stringify(customProducts));
+
+            alert('تمت إضافة المنتج بنجاح إلى المتجر!');
+            document.getElementById('addProductForm').reset();
+        });
+
+        // كود إضافة المنتج إلى المتجر
+        document.getElementById('addProductForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('productName').value;
+            const price = document.getElementById('productPrice').value;
+            const image = document.getElementById('productImage').value;
+
+            const newProduct = {
+                id: Date.now().toString(),
+                name: name,
+                price: Number(price),
+                image: image
+            };
+
+            let customProducts = JSON.parse(localStorage.getItem('customProducts'))
+                || JSON.parse(localStorage.getItem('custom_products'))
+                || [];
+
+            customProducts.push(newProduct);
+
+            // حفظ المنتج بالاسمين لمنع أي تعارض
+            localStorage.setItem('customProducts', JSON.stringify(customProducts));
+            localStorage.setItem('custom_products', JSON.stringify(customProducts));
+
+            alert('تمت إضافة المنتج بنجاح إلى المتجر!');
+            this.reset();
+            loadAdminProducts(); // تحديث القائمة فوراً
+        });
+
+        // دالة عرض المنتجات المضافة في لوحة التحكم مع زر الحذف
+
+        function loadAdminProducts() {
+            const adminContainer = document.getElementById('admin-products-list');
+            if (!adminContainer) return;
+
+            const customProducts = JSON.parse(localStorage.getItem('customProducts'))
+                || JSON.parse(localStorage.getItem('custom_products'))
+                || [];
+            adminContainer.innerHTML = '';
+
+            if (customProducts.length === 0) {
+                adminContainer.innerHTML = '<p style="color:#666; text-align:center; padding:10px;">لا توجد منتجات مضافة حالياً.</p>';
+                return;
+            }
+
+            customProducts.forEach((product, index) => {
+                const item = document.createElement('div');
+                item.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding:12px; border-bottom:1px solid #eee; margin-bottom:8px; background:#ffffff; border-radius:6px;';
+                item.innerHTML = `
+                <div>
+                    <strong>${product.name}</strong> - <span style="color:#25d366; font-weight:bold;">${Number(product.price).toLocaleString()} ريال</span>
+                </div>
+                <button onclick="deleteProduct(${index})" style="background:#ef4444; color:white; border:none; padding:6px 14px; cursor:pointer; border-radius:4px; font-weight:bold;">
+                    حذف المنتج
+                </button>
+            `;
+                adminContainer.appendChild(item);
+            });
+        }
+        // دالة حذف المنتج
+        function deleteProduct(index) {
+            if (confirm('هل أنت تأكد من حذف هذا المنتج من المتجر؟')) {
+                let customProducts = JSON.parse(localStorage.getItem('customProducts'))
+                    || JSON.parse(localStorage.getItem('custom_products'))
+                    || [];
+
+                customProducts.splice(index, 1);
+
+                localStorage.setItem('customProducts', JSON.stringify(customProducts));
+                localStorage.setItem('custom_products', JSON.stringify(customProducts));
+
+                loadAdminProducts();
+                alert('تم حذف المنتج بنجاح!');
+            }
+        }
+
+        // تشغيل العرض عند التحميل
+        document.addEventListener('DOMContentLoaded', loadAdminProducts);
+        // دالة عرض المنتجات في لوحة التحكم مع زر الحذف
+        function loadAdminProducts() {
+            const adminContainer = document.getElementById('admin-products-list');
+            if (!adminContainer) return;
+
+            const customProducts = JSON.parse(localStorage.getItem('customProducts'))
+                || JSON.parse(localStorage.getItem('custom_products'))
+                || [];
+            adminContainer.innerHTML = '';
+
+            if (customProducts.length === 0) {
+                adminContainer.innerHTML = '<p style="color:#666; text-align:center; padding:10px;">لا توجد منتجات مضافة حالياً.</p>';
+                return;
+            }
+
+            customProducts.forEach((product, index) => {
+                const item = document.createElement('div');
+                item.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding:12px; border-bottom:1px solid #eee; margin-bottom:8px; background:#ffffff; border-radius:6px;';
+                item.innerHTML = `
+            <div>
+                <strong>${product.name}</strong> - <span style="color:#25d366; font-weight:bold;">${Number(product.price).toLocaleString()} ريال</span>
+            </div>
+            <button onclick="deleteProduct(${index})" style="background:#ef4444; color:white; border:none; padding:6px 14px; cursor:pointer; border-radius:4px; font-weight:bold;">
+                حذف المنتج
+            </button>
+        `;
+                adminContainer.appendChild(item);
+            });
+        }
+
+        // دالة حذف المنتج من المتجر
+        function deleteProduct(index) {
+            if (confirm('هل أنت تأكد من حذف هذا المنتج من المتجر؟')) {
+                let customProducts = JSON.parse(localStorage.getItem('customProducts'))
+                    || JSON.parse(localStorage.getItem('custom_products'))
+                    || [];
+
+                customProducts.splice(index, 1);
+
+                localStorage.setItem('customProducts', JSON.stringify(customProducts));
+                localStorage.setItem('custom_products', JSON.stringify(customProducts));
+
+                loadAdminProducts();
+                alert('تم حذف المنتج بنجاح!');
+            }
+        }
+
+        // تشغيل العرض تلقائياً عند فتح الصفحة
+        document.addEventListener('DOMContentLoaded', loadAdminProducts);
+    </script>
+
+</body>
+
+</html>
+</script>
+
+</body>
+
+</html>
